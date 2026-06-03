@@ -1,0 +1,172 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  font-family: Arial;
+}
+
+.sidebar {
+  width: 220px;
+  background: #0d47a1;
+  color: white;
+  padding: 15px;
+}
+
+.sidebar button {
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+}
+
+.sidebar button.active {
+  background: white;
+  color: #0d47a1;
+}
+
+.main {
+  flex: 1;
+  padding: 15px;
+  background: #f4f6f8;
+}
+
+.header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cards {
+  display: flex;
+  gap: 10px;
+}
+
+.card {
+  flex: 1;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.green { background: #2ecc71; }
+.red { background: #e74c3c; }
+
+.list .item {
+  padding: 15px;
+  margin: 5px;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cell {
+  width: 180px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item.selected {
+  background-color: #f0f8ff;
+  border-left: 4px solid #3498db;
+}
+
+.add-btn {
+  margin-left: auto;
+}
+
+.danger {
+  margin-left: 10px;
+}
+
+.rack-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+.rack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rack-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.rack-column {
+  display: flex;
+  flex-direction: column-reverse; /* 🔥 THIS makes L0 go bottom */
+  gap: 10px;
+}
+
+.cell {
+  width: 120px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+.bus-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-end; /* aligns bottoms like real racks */
+  overflow-x: auto;
+}
+
+.bus-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bus-row-label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.bus-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Seat style */
+.bus-seat {
+  width: 120px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+/* Colors like booking apps */
+.bus-seat.free {
+  background: #eafaf1;
+  border-left: 5px solid #2ecc71;
+}
+
+.bus-seat.occupied {
+  background: #fdecea;
+  border-left: 5px solid #e74c3c;
+}
+
+.seat-id {
+  font-weight: bold;
+}

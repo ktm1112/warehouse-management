@@ -1,0 +1,157 @@
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>WMS</h2>
+
+    <button [class.active]="view==='home'" (click)="view='home'">
+      Home
+    </button>
+
+    <button [class.active]="view==='warehouses'" (click)="openWarehouses()">
+      Warehouses
+    </button>
+    <button [class.active]="view==='reports'" >
+      Reports
+    </button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+   <div class="header">
+      <button *ngIf="view !== 'warehouses' && view !== 'home'" (click)="back()">← Back</button>
+      <h2>{{ view | uppercase }}</h2>
+    </div>
+
+    <!-- HOME -->
+    <div *ngIf="view==='home'" class="cards">
+      <div class="card green">
+        Free: {{ totalFree }}
+      </div>
+
+      <div class="card red">
+        Occupied: {{ totalOccupied }}
+      </div>
+    </div>
+
+    <!-- WAREHOUSES -->
+    <div *ngIf="view==='warehouses'" class="list">
+    <div class="item header-item header-flex">
+        <span>Warehouses </span>
+
+        <button class="add-btn" (click)="addWarehouse()">+ Add Warehouse</button>
+      </div>
+      <div *ngFor="let w of warehouses"
+           class="item"
+       [class.selected]="selectedWarehouse?.id === w.id">
+        
+         <span (click)="selectWarehouse(w)">
+        🏭 {{ w.name }}        
+        </span>
+      </div>
+
+    </div>
+
+    <!-- CHAMBERS -->    
+    <div *ngIf="view==='chambers'" class="list">
+
+    <!-- HEADER -->
+     <div class="header">
+      <button *ngIf="view!=='chambers'" (click)="back()">← Back</button>
+      <h2>{{ view | uppercase }}</h2>
+    </div>
+    <div class="item header-item header-flex">
+      <span>Warehouse: {{ selectedWarehouse?.name }}</span>
+      <button class="add-btn" (click)="addChamber()">+ Add Chamber</button>
+    </div>
+    <!-- CHAMBER LIST -->
+    <div *ngFor="let c of chambers"
+        class="item"
+        [class.selected]="selectedChamber?.id === c.id">
+
+      <!-- Click to open/select -->
+      <span (click)="selectChamber(c)">
+        🏢 {{ c.name }}
+      </span>
+
+      <!-- Show delete ONLY when selected -->
+      <!-- <button class="danger"
+              *ngIf="selectedChamber?.id === c.id"
+              (click)="deleteChamber(c)">
+        Delete
+      </button> -->
+
+    </div>
+
+    </div>
+
+    <!-- SLOTS -->
+    <div *ngIf="view==='slots'" class="list">
+    <div class="item header-item header-flex">
+       <span> {{ selectedWarehouse?.name }} : {{ selectedChamber?.name }}</span>
+        <button class="add-btn" (click)="addSlots()">+ Add Rows/levels</button>
+      </div>
+      <div class="filters">
+        <input [(ngModel)]="searchText" placeholder="Search..." />
+
+        <select [(ngModel)]="statusFilter">
+          <option value="all">All</option>
+          <option value="free">Free</option>
+          <option value="occupied">Occupied</option>
+        </select>
+      </div>
+      <div id="qr-reader" style="width:300px; margin: 10px auto;"></div>
+      <div class="grid">
+
+        <div class="bus-layout">
+
+        <div *ngFor="let group of groupedSpaces" class="bus-column">
+
+          <div class="bus-row-label">
+            R{{ group.row }}
+          </div>
+
+          <div class="bus-stack">
+
+            <div *ngFor="let space of group.spaces"
+                class="bus-seat"
+                [class.free]="space.status==='free'"
+                [class.occupied]="space.status==='occupied'">
+
+              <div class="seat-id">{{ space.id }}</div>
+
+              <div class="seat-item">
+                {{ space.item || 'Empty' }}
+              </div>
+
+              <small>L{{ space.level }}</small>
+
+              <div class="btns">
+                <button *ngIf="space.status==='free'" (click)="assign(space)">
+                  Assign
+                </button>
+
+                <button *ngIf="space.status==='free'" (click)="startScan(space)">
+                  Scan QR
+                </button>
+
+                <button *ngIf="space.status==='occupied'" (click)="release(space)">
+                  Release
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
